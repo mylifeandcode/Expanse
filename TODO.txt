@@ -1,0 +1,5 @@
+- Get starfield background image
+- Get 3 Federation starship images
+- Get 3 Klingon starship images
+- Finish combat engine
+- Finish workbench to test/tune combat engine
