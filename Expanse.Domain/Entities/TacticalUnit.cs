@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using Expanse.Domain.Spatial;
 
-namespace Expanse.Domain.Entities
+namespace Expanse.Domain.Things
 {
     public class TacticalUnit
     {

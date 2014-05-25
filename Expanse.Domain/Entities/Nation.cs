@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Expanse.Domain.Spatial;
 
-namespace Expanse.Domain.Entities
+namespace Expanse.Domain.Things
 {
     public class Nation
     {

@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Expanse.Domain.Things
+namespace Expanse.Engines.Interfaces
 {
-    public class Outpost : TacticalTerritory
+    public interface IPresentTheGame
     {
     }
 }

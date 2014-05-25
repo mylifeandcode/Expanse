@@ -2,55 +2,39 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using Expanse.Domain.Entities;
+using Expanse.Domain.Things;
+using Expanse.Engines.Interfaces;
+using Expanse.Infrastructure.Interfaces;
 
 namespace Expanse.Engines
 {
-    public interface ICombatEngine
+    public class CombatEngine : IResolveCombat
     {
-        string Attack(TacticalUnit attacker, TacticalUnit defender, int percentageChanceOfMultiShieldDamage, bool allowDamageToAttacker, bool returnSpecifics);
-        string AllocateDamage(TacticalUnit recipient, int damageToAllocate, int percentageChanceOfMultiShieldDamage, bool returnSpecifics);
+        private IAnnounce _announcer;
 
-        /// <summary>
-        /// Resolves combat between two TacticalUnits
-        /// </summary>
-        /// <param name="attacker">The attacker</param>
-        /// <param name="defender">The defender</param>
-        /// <param name="allowDamageToAttacker">Specifies whether or not to allow damage to the attacker during the attack</param>
-        /// <param name="attackerDamage">Amount of damage to apply to the attacker</param>
-        /// <param name="defenderDamage">Amount of damage to apply to the defender</param>
-        /// <param name="returnSpecifics">Specifies whether or not to return specifics about how the combat played out</param>
-        /// <returns>A description of how the combat played out if returnSpecifics was specified as true, otherwise null</returns>
-        string ResolveCombat(TacticalUnit attacker, TacticalUnit defender, bool allowDamageToAttacker, out int attackerDamage, out int defenderDamage, bool returnSpecifics);
-    }
-
-    public class CombatEngine : ICombatEngine
-    {
-        public string Attack(TacticalUnit attacker, TacticalUnit defender, int percentageChanceOfMultiShieldDamage, bool allowDamageToAttacker, bool returnSpecifics)
+        public CombatEngine(IAnnounce announcer)
         {
-            int attackerDamage;
-            int defenderDamage;
-            string defenderDamageResolution = null;
-            string attackerDamageResolution = null;
-
-            string combatResolution = ResolveCombat(attacker, defender, allowDamageToAttacker, out attackerDamage, out defenderDamage, returnSpecifics);
-
-            if (defenderDamage > 0)
-                defenderDamageResolution = AllocateDamage(defender, defenderDamage, percentageChanceOfMultiShieldDamage, returnSpecifics);
-
-            if (allowDamageToAttacker && attackerDamage > 0)
-                attackerDamageResolution = AllocateDamage(attacker, attackerDamage, percentageChanceOfMultiShieldDamage, returnSpecifics);
-
-            if (!returnSpecifics)
-                return null;
-            else
-                return (String.IsNullOrWhiteSpace(combatResolution) ? "" : combatResolution)
-                    + (String.IsNullOrWhiteSpace(defenderDamageResolution) ? "" : defenderDamageResolution)
-                    + (String.IsNullOrWhiteSpace(attackerDamageResolution) ? "" : attackerDamageResolution);
+            _announcer = announcer; //Can be null
         }
 
 
-        public string AllocateDamage(TacticalUnit recipient, int damageToAllocate, int percentageChanceOfMultiShieldDamage, bool returnSpecifics)
+        #region Public Methods
+        public void Attack(TacticalUnit attacker, TacticalUnit defender, int percentageChanceOfMultiShieldDamage, bool allowDamageToAttacker)
+        {
+            int attackerDamage;
+            int defenderDamage;
+
+            ResolveCombat(attacker, defender, allowDamageToAttacker, out attackerDamage, out defenderDamage);
+
+            if (defenderDamage > 0)
+                AllocateDamage(defender, defenderDamage, percentageChanceOfMultiShieldDamage);
+
+            if (allowDamageToAttacker && attackerDamage > 0)
+                AllocateDamage(attacker, attackerDamage, percentageChanceOfMultiShieldDamage);
+        }
+
+
+        public void AllocateDamage(TacticalUnit recipient, int damageToAllocate, int percentageChanceOfMultiShieldDamage)
         {
             //Determine whether or not we'll be applying damage via 2 different shield angles
             Random random = new Random();
@@ -62,7 +46,7 @@ namespace Expanse.Engines
         }
 
 
-        public string ResolveCombat(TacticalUnit attacker, TacticalUnit defender, bool allowDamageToAttacker, out int attackerDamage, out int defenderDamage, bool returnSpecifics)
+        public void ResolveCombat(TacticalUnit attacker, TacticalUnit defender, bool allowDamageToAttacker, out int attackerDamage, out int defenderDamage)
         {
             string specifics = null;
 
@@ -105,7 +89,8 @@ namespace Expanse.Engines
                     attackerDamage = 0;
             }
 
-            specifics = String.Format(
+            if (_announcer != null)
+                _announcer.Announce(String.Format(
                 "{0} current attack rating: {1}, bonus: {2}, random value: {3} - {4} current defense rating: {5}, bonus: {6}, random value: {7} - " +
                     "{0} damage taken = {8}, {9} damage taken = {10}",
                 attacker.Name, 
@@ -117,9 +102,9 @@ namespace Expanse.Engines
                 defenderBonus, 
                 defenderRandomVal, 
                 attackerDamage, 
-                defenderDamage);
-
-            return specifics;
+                defenderDamage));
         }
+
+        #endregion Public Methods
     }
 }

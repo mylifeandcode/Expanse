@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Expanse.Domain.Entities
+namespace Expanse.Domain.Things
 {
     public class Base : Outpost
     {

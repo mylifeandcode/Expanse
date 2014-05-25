@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Expanse.Engines.Interfaces;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,14 +7,12 @@ using System.Threading.Tasks;
 
 namespace Expanse.Engines
 {
-    public interface IPresentationEngine { }
-
-    public class PresentationEngine : IPresentationEngine
+    public class PresentationEngine : IPresentTheGame
     {
-        protected IAudioEngine _audioEngine { get; private set; }
-        protected IRenderingEngine _renderingEngine { get; private set; }
+        protected IPlayAudio _audioEngine { get; private set; }
+        protected IShowGraphics _renderingEngine { get; private set; }
 
-        public PresentationEngine(IRenderingEngine renderingEngine, IAudioEngine audioEngine)
+        public PresentationEngine(IShowGraphics renderingEngine, IPlayAudio audioEngine)
         {
             _renderingEngine = renderingEngine;
             _audioEngine = audioEngine;

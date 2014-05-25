@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using Expanse.Domain.Entities;
+using Expanse.Domain.Things;
 using Expanse.Domain.Spatial;
 using Expanse.Engines;
 using Microsoft.VisualStudio.TestTools.UnitTesting;

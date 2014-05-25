@@ -1,6 +1,8 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2012
+# Visual Studio 2013
+VisualStudioVersion = 12.0.21005.1
+MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExpanseWorkbench", "Expanse\ExpanseWorkbench.csproj", "{9E7A553D-EBE3-4826-8B8D-2430265D0964}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Expanse.Engines", "Expanse.Engines\Expanse.Engines.csproj", "{EE15D235-8276-4D55-AA59-28DE5AA0EE52}"
@@ -13,6 +15,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Expanse.Domain", "Expanse.Domain\Expanse.Domain.csproj", "{6418D3C1-079B-4870-900B-2EAAED385ABE}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Expanse.UnitTests", "Expanse.UnitTests\Expanse.UnitTests.csproj", "{CE37EEDC-A945-43D3-B919-E0674950DEFC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Expanse.Infrastructure", "Expanse.Infrastructure\Expanse.Infrastructure.csproj", "{C4488BE8-46EC-4702-A468-BF1738C9AF47}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -64,6 +68,16 @@ Global
 		{CE37EEDC-A945-43D3-B919-E0674950DEFC}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{CE37EEDC-A945-43D3-B919-E0674950DEFC}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{CE37EEDC-A945-43D3-B919-E0674950DEFC}.Release|x86.ActiveCfg = Release|Any CPU
+		{C4488BE8-46EC-4702-A468-BF1738C9AF47}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C4488BE8-46EC-4702-A468-BF1738C9AF47}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C4488BE8-46EC-4702-A468-BF1738C9AF47}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{C4488BE8-46EC-4702-A468-BF1738C9AF47}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{C4488BE8-46EC-4702-A468-BF1738C9AF47}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{C4488BE8-46EC-4702-A468-BF1738C9AF47}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C4488BE8-46EC-4702-A468-BF1738C9AF47}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C4488BE8-46EC-4702-A468-BF1738C9AF47}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{C4488BE8-46EC-4702-A468-BF1738C9AF47}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{C4488BE8-46EC-4702-A468-BF1738C9AF47}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace Expanse.Domain.Entities
+namespace Expanse.Domain.Things
 {
     /// <summary>
     /// A class used to define anything which can modify a tactical unit.

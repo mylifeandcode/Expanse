@@ -3,16 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Expanse.Domain.Entities;
+using Expanse.Domain.Things;
+using Expanse.Engines.Interfaces;
 
 namespace Expanse.Engines
 {
-    public interface IDiplomacyEngine 
-    {
-        bool WillCombatOccur(Nation nation1, Nation nation2);
-    }
-
-    public class DiplomacyEngine : IDiplomacyEngine
+    public class DiplomacyEngine : ICoordinateDiplomacy
     {
         public bool WillCombatOccur(Nation nation1, Nation nation2)
         {

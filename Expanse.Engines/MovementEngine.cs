@@ -3,30 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Expanse.Domain.Entities;
+using Expanse.Domain.Things;
 using Expanse.Domain.Spatial;
+using Expanse.Engines.Interfaces;
 
 namespace Expanse.Engines
 {
-    public interface IMovementEngine 
-    {
-        /// <summary>
-        /// Resolves movement for all TacticalUnits/Groups which are in transit for all nations
-        /// </summary>
-        void ResolveMovement();
-
-        /// <summary>
-        /// Nations in use
-        /// </summary>
-        List<Nation> Nations { get; set; }
-
-        /// <summary>
-        /// The game map
-        /// </summary>
-        TacticalMap Map { get; set; }
-    }
-
-    public class MovementEngine : IMovementEngine
+    public class MovementEngine : IResolveMovement
     {
         public MovementEngine(List<Nation> nations, TacticalMap map)
         {
