@@ -23,8 +23,9 @@ namespace Expanse.UnitTests.Engines
             _map = new TacticalMap();
         }
 
-        [TestMethod]
-        public void TestResolveMovementReturnSuccessfully()
+
+        [TestMethod, TestCategory("Engines")]
+        public void MovementEngine_ResolveMovement_Should_Move_Tactical_Unit()
         {
             //ASSIGN
             Position startingPosition = new Position(5, 5, 5);
@@ -48,6 +49,50 @@ namespace Expanse.UnitTests.Engines
             Assert.AreEqual(4, tacticalUnit.CurrentPosition.X);
             Assert.AreEqual(3, tacticalUnit.CurrentPosition.Y);
             Assert.AreEqual(8, tacticalUnit.CurrentPosition.Z);
+        }
+
+
+        [TestMethod, TestCategory("Engines")]
+        public void MovementEngine_ResolveMovement_Should_Move_Tactical_Group()
+        {
+            //Should move the tactical group and its tactical units, but should not move the tactical units again AFTER moving the group
+
+            //ASSIGN
+            Position startingPosition = new Position(5, 5, 5);
+            Position destinationPosition = new Position(4, 3, 9);
+            TacticalUnit tacticalUnit = new TacticalUnit()
+            {
+                CurrentPosition = startingPosition,
+                DestinationPosition = destinationPosition,
+                SpeedCurrent = 3
+            };
+
+            TacticalGroup tacticalGroup = new TacticalGroup
+            {
+                CurrentPosition = startingPosition,
+                DestinationPosition = destinationPosition
+            };
+
+            //tacticalGroup.TacticalUnits.Add(tacticalUnit);
+            tacticalGroup.AddTacticalUnit(tacticalUnit);
+
+            _nations[0].TacticalUnits.Add(tacticalUnit);
+            _nations[0].TacticalGroups.Add(tacticalGroup);
+
+            MovementEngine engine = new MovementEngine(_nations, _map);
+
+            //ACT
+            engine.ResolveMovement();
+
+            //ASSERT
+            Assert.IsFalse(startingPosition.Equals(tacticalUnit.CurrentPosition));
+            Assert.IsFalse(startingPosition.Equals(tacticalGroup.CurrentPosition));
+            Assert.AreEqual(4, tacticalUnit.CurrentPosition.X);
+            Assert.AreEqual(3, tacticalUnit.CurrentPosition.Y);
+            Assert.AreEqual(8, tacticalUnit.CurrentPosition.Z);
+            Assert.AreEqual(4, tacticalGroup.CurrentPosition.X);
+            Assert.AreEqual(3, tacticalGroup.CurrentPosition.Y);
+            Assert.AreEqual(8, tacticalGroup.CurrentPosition.Z);
         }
     }
 }

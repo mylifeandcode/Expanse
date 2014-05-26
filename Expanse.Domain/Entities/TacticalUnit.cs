@@ -23,7 +23,7 @@ namespace Expanse.Domain.Things
         public int Power { get; set; }
         public short PowerCostPerMove { get; set; }
         public short PowerCostPerTacticalTurn { get; set; }
-        public Guid ShipGroupId { get; set; }
+        public Guid? TacticalGroupId { get; set; }
         public int BodyNormal { get; set; }
         public int BodyCurrent { get; set; }
         public short SpeedNormal { get; set; }

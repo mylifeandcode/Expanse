@@ -9,7 +9,16 @@ namespace Expanse.Domain.Things
 {
     public class TacticalGroup
     {
-        public List<TacticalUnit> TacticalUnits { get; set; }
+        #region Fields
+
+        private Guid _id;
+        private List<TacticalUnit> _tacticalUnits;
+
+        #endregion Fields
+
+        #region Properties
+
+        public IReadOnlyList<TacticalUnit> TacticalUnits { get { return _tacticalUnits; } }
         
         public bool IsInTransit
         {
@@ -43,7 +52,7 @@ namespace Expanse.Domain.Things
             {
                 if (this.TacticalUnits != null && this.TacticalUnits.Any())
                 {
-                    this.TacticalUnits.ForEach(x => x.CurrentPosition = value);
+                    this.TacticalUnits.ToList().ForEach(x => x.CurrentPosition = value);
                 }
             }
         }
@@ -69,8 +78,35 @@ namespace Expanse.Domain.Things
             set
             {
                 if (this.TacticalUnits != null)
-                    this.TacticalUnits.ForEach(x => x.IsInCombat = value);
+                    this.TacticalUnits.ToList().ForEach(x => x.IsInCombat = value);
             }
         }
+
+        #endregion Properties
+
+
+        public TacticalGroup()
+        {
+            _id = new Guid();
+            _tacticalUnits = new List<TacticalUnit>();
+        }
+
+
+        #region Public Methods
+
+        public void AddTacticalUnit(TacticalUnit tacticalUnit)
+        {
+            tacticalUnit.TacticalGroupId = _id;
+            _tacticalUnits.Add(tacticalUnit);
+        }
+
+
+        public void RemoveTacticalUnit(TacticalUnit tacticalUnit)
+        {
+            tacticalUnit.TacticalGroupId = null;
+            _tacticalUnits.Remove(tacticalUnit);
+        }
+
+        #endregion Public Methods
     }
 }

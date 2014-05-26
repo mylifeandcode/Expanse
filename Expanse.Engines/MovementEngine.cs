@@ -76,7 +76,7 @@ namespace Expanse.Engines
             if (nation == null)
                 throw new ArgumentNullException("nation");
 
-            foreach (var tacticalUnit in nation.TacticalUnits.Where(x => x.IsInTransit))
+            foreach (var tacticalUnit in nation.TacticalUnits.Where(x => x.IsInTransit && x.TacticalGroupId == null))
             {
                 tacticalUnit.CurrentPosition = GetNextPosition(tacticalUnit.CurrentPosition, tacticalUnit.DestinationPosition, tacticalUnit.SpeedCurrent);
             }
