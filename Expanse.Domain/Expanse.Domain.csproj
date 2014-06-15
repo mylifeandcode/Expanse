@@ -43,6 +43,7 @@
     <Compile Include="Diplomacy\Alliance.cs" />
     <Compile Include="Diplomacy\IntelligenceSharing.cs" />
     <Compile Include="Diplomacy\Partnership.cs" />
+    <Compile Include="Diplomacy\Relationship.cs" />
     <Compile Include="Diplomacy\TradeAgreement.cs" />
     <Compile Include="Things\Base.cs" />
     <Compile Include="Things\BattleGroup.cs" />
@@ -53,6 +54,7 @@
     <Compile Include="Things\Modifier.cs" />
     <Compile Include="Things\Nation.cs" />
     <Compile Include="Things\Outpost.cs" />
+    <Compile Include="Diplomacy\RelationshipMatrix.cs" />
     <Compile Include="Things\TacticalGroup.cs" />
     <Compile Include="Things\TacticalTerritory.cs" />
     <Compile Include="Spatial\Position.cs" />

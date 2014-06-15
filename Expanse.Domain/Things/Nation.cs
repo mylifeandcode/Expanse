@@ -9,6 +9,7 @@ namespace Expanse.Domain.Things
 {
     public class Nation
     {
+        public short Id { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
         public string Summary { get; set; }
@@ -36,8 +37,6 @@ namespace Expanse.Domain.Things
         public bool Active { get; set; }
 
         //TODO: Spies in V2
-
-        //TODO: Tactical Groups?
 
         public Nation()
         {
