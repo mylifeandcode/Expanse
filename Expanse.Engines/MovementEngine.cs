@@ -6,11 +6,17 @@ using System.Threading.Tasks;
 using Expanse.Domain.Things;
 using Expanse.Domain.Spatial;
 using Expanse.Engines.Interfaces;
+using Expanse.Domain.Things.Interfaces;
+
 
 namespace Expanse.Engines
 {
     public class MovementEngine : IResolveMovement
     {
+        public List<Nation> Nations { get; set; }
+        public TacticalMap Map { get; set; }
+
+
         public MovementEngine(List<Nation> nations, TacticalMap map)
         {
             #region Guard Code
@@ -28,8 +34,6 @@ namespace Expanse.Engines
             Map = map;
         }
 
-        public List<Nation> Nations { get; set; }
-        public TacticalMap Map { get; set; }
 
         public void ResolveMovement()
         {
@@ -52,6 +56,7 @@ namespace Expanse.Engines
             }
         }
 
+
         /// <summary>
         /// Moves all in-transit tactical groups for the specified nation
         /// </summary>
@@ -63,9 +68,10 @@ namespace Expanse.Engines
 
             foreach (var tacticalGroup in nation.TacticalGroups.Where(x => x.IsInTransit))
             {
-                tacticalGroup.CurrentPosition = GetNextPosition(tacticalGroup.CurrentPosition, tacticalGroup.DestinationPosition, tacticalGroup.Speed);
+                MoveAndCheckForCombat(tacticalGroup);
             }
         }
+
 
         /// <summary>
         /// Moves all in-transit tactical units for the specified nation
@@ -78,9 +84,25 @@ namespace Expanse.Engines
 
             foreach (var tacticalUnit in nation.TacticalUnits.Where(x => x.IsInTransit && x.TacticalGroupId == null))
             {
-                tacticalUnit.CurrentPosition = GetNextPosition(tacticalUnit.CurrentPosition, tacticalUnit.DestinationPosition, tacticalUnit.SpeedCurrent);
+                MoveAndCheckForCombat(tacticalUnit);
             }
         }
+
+
+        private void MoveAndCheckForCombat(IMoveAndFight fighter)
+        {
+            fighter.CurrentPosition = GetNextPosition(fighter.CurrentPosition, fighter.DestinationPosition, fighter.Speed);
+            IEnumerable<IMoveAndFight> willFightWith;
+            if (ShouldCombatEnsue(fighter, out willFightWith))
+            {
+                SetCombatStance(fighter);
+                foreach (var opponent in willFightWith)
+                {
+                    SetCombatStance(opponent);
+                }
+            }
+        }
+
 
         /// <summary>
         /// Gets the next position based on the current position, destination position, and speed
@@ -102,6 +124,7 @@ namespace Expanse.Engines
 
             return nextPosition;
         }
+
 
         /// <summary>
         /// Gets the adjusted vector based on the current position, destination position, and adjust by amount (speed)
@@ -129,6 +152,31 @@ namespace Expanse.Engines
             }
 
             return adjustedVector;
+        }
+
+
+        /// <summary>
+        /// Determines whether or not combat should ensure for an IMoveAndFight based on its position and the position/disposition of any other IMoveAndFights
+        /// in the same space
+        /// </summary>
+        /// <param name="fighter"></param>
+        /// <param name="willFightWith"></param>
+        /// <returns></returns>
+        private bool ShouldCombatEnsue(IMoveAndFight fighter, out IEnumerable<IMoveAndFight> willFightWith)
+        {
+            //Is there another IMoveAndFight present in the same location? And if so, is it hostile?
+            throw new NotImplementedException();
+        }
+
+
+        /// <summary>
+        /// Sets an IMoveAndFight's properties for combat
+        /// </summary>
+        /// <param name="fighter">The object to modify</param>
+        private void SetCombatStance(IMoveAndFight fighter)
+        {
+            fighter.DestinationPosition = fighter.CurrentPosition; //Stop right there!
+            fighter.IsInCombat = true;
         }
     }
 }
