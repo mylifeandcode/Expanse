@@ -8,7 +8,7 @@ using Expanse.Domain.Things.Interfaces;
 
 namespace Expanse.Domain.Things
 {
-    public class TacticalGroup : IMoveAndFight
+    public class TacticalGroup : ITacticalUnit
     {
         #region Fields
 
@@ -32,10 +32,10 @@ namespace Expanse.Domain.Things
                     return TacticalUnits.Any(x => x.IsInTransit);
                 */
 
-                if (CurrentPosition == null || DestinationPosition == null)
+                if (CurrentPosition == null || Destination == null)
                     return false;
                 else
-                    return !CurrentPosition.Equals(DestinationPosition);
+                    return !CurrentPosition.Equals(Destination);
             }
         }
 
@@ -58,7 +58,7 @@ namespace Expanse.Domain.Things
             }
         }
 
-        public Position DestinationPosition { get; set; }
+        public Position Destination { get; set; }
         public short Speed
         {
             get

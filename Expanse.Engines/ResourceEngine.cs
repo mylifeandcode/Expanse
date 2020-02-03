@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Expanse.Engines
 {
-    public class ResourceEngine : IAdjustResources
+    public class ResourceEngine : IResourceEngine
     {
     }
 }

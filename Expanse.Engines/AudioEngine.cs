@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Expanse.Engines
 {
-    public class AudioEngine : IPlayAudio
+    public class AudioEngine : IAudioEngine
     {
     }
 }

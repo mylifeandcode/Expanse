@@ -6,31 +6,31 @@ using System.Threading.Tasks;
 
 namespace Expanse.Engines
 {
-    public class GameflowCoordinator : ICoordinateGameflow
+    public class GameflowCoordinator : IGameflowCoordinator
     {
         #region Properties
-        public IMakeAIDecisions AIDecisionEngine { get; private set; }
-        public IPlayAudio AudioEngine { get; private set; }
-        public IResolveCombat CombatEngine { get; private set; }
-        public ICoordinateDiplomacy DiplomacyEngine { get; private set; }
-        public IResolveMovement MovementEngine { get; private set; }
-        public IPresentTheGame PresentationEngine { get; private set; }
-        public ICoordinateProduction ProductionEngine { get; private set; }
+        public IDecisionEngine AIDecisionEngine { get; private set; }
+        public IAudioEngine AudioEngine { get; private set; }
+        public ICombatEngine CombatEngine { get; private set; }
+        public IDiplomacyEngine DiplomacyEngine { get; private set; }
+        public IMovementEngine MovementEngine { get; private set; }
+        public IPresentationEngine PresentationEngine { get; private set; }
+        public IProductionEngine ProductionEngine { get; private set; }
         //public IShowGraphics RenderingEngine { get; private set; }
-        public IAdjustResources ResourceEngine { get; private set; }
+        public IResourceEngine ResourceEngine { get; private set; }
         #endregion Properties
 
         #region Constructors
         public GameflowCoordinator(
-            IMakeAIDecisions aiDecisionEngine,
-            IPlayAudio audioEngine,
-            IResolveCombat combatEngine,
-            ICoordinateDiplomacy diplomacyEngine,
-            IResolveMovement movementEngine,
-            IPresentTheGame presentationEngine,
-            ICoordinateProduction productionEngine,
+            IDecisionEngine aiDecisionEngine,
+            IAudioEngine audioEngine,
+            ICombatEngine combatEngine,
+            IDiplomacyEngine diplomacyEngine,
+            IMovementEngine movementEngine,
+            IPresentationEngine presentationEngine,
+            IProductionEngine productionEngine,
             //IShowGraphics renderingEngine,
-            IAdjustResources resourceEngine)
+            IResourceEngine resourceEngine)
         {
             AIDecisionEngine = aiDecisionEngine;
             AudioEngine = audioEngine;

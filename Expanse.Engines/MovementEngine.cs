@@ -11,7 +11,7 @@ using Expanse.Domain.Things.Interfaces;
 
 namespace Expanse.Engines
 {
-    public class MovementEngine : IResolveMovement
+    public class MovementEngine : IMovementEngine
     {
         public List<Nation> Nations { get; set; }
         public TacticalMap Map { get; set; }
@@ -89,13 +89,13 @@ namespace Expanse.Engines
         }
 
 
-        private void MoveAndCheckForCombat(IMoveAndFight fighter)
+        private void MoveAndCheckForCombat(ITacticalUnit unit)
         {
-            fighter.CurrentPosition = GetNextPosition(fighter.CurrentPosition, fighter.DestinationPosition, fighter.Speed);
-            IEnumerable<IMoveAndFight> willFightWith;
-            if (ShouldCombatEnsue(fighter, out willFightWith))
+            unit.CurrentPosition = GetNextPosition(unit.CurrentPosition, unit.Destination, unit.Speed);
+            IEnumerable<ITacticalUnit> willFightWith;
+            if (ShouldCombatEnsue(unit, out willFightWith))
             {
-                SetCombatStance(fighter);
+                SetCombatStance(unit);
                 foreach (var opponent in willFightWith)
                 {
                     SetCombatStance(opponent);
@@ -159,12 +159,12 @@ namespace Expanse.Engines
         /// Determines whether or not combat should ensure for an IMoveAndFight based on its position and the position/disposition of any other IMoveAndFights
         /// in the same space
         /// </summary>
-        /// <param name="fighter"></param>
+        /// <param name="unit"></param>
         /// <param name="willFightWith"></param>
         /// <returns></returns>
-        private bool ShouldCombatEnsue(IMoveAndFight fighter, out IEnumerable<IMoveAndFight> willFightWith)
+        private bool ShouldCombatEnsue(ITacticalUnit unit, out IEnumerable<ITacticalUnit> willFightWith)
         {
-            //Is there another IMoveAndFight present in the same location? And if so, is it hostile?
+            //Is there another ITacticalUnit present in the same location? And if so, is it hostile?
             throw new NotImplementedException();
         }
 
@@ -172,11 +172,11 @@ namespace Expanse.Engines
         /// <summary>
         /// Sets an IMoveAndFight's properties for combat
         /// </summary>
-        /// <param name="fighter">The object to modify</param>
-        private void SetCombatStance(IMoveAndFight fighter)
+        /// <param name="unit">The object to modify</param>
+        private void SetCombatStance(ITacticalUnit unit)
         {
-            fighter.DestinationPosition = fighter.CurrentPosition; //Stop right there!
-            fighter.IsInCombat = true;
+            unit.Destination = unit.CurrentPosition; //Stop right there!
+            unit.IsInCombat = true;
         }
     }
 }

@@ -8,7 +8,7 @@ using Expanse.Engines.Interfaces;
 
 namespace Expanse.Engines
 {
-    public class DiplomacyEngine : ICoordinateDiplomacy
+    public class DiplomacyEngine : IDiplomacyEngine
     {
         public bool WillCombatOccur(Nation nation1, Nation nation2)
         {

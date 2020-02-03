@@ -49,22 +49,22 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ArtificialIntelligenceDecisionEngine.cs" />
+    <Compile Include="DecisionEngine.cs" />
     <Compile Include="AudioEngine.cs" />
     <Compile Include="CombatEngine.cs" />
     <Compile Include="DiplomacyEngine.cs" />
     <Compile Include="Game1.cs" />
     <Compile Include="GameflowCoordinator.cs" />
-    <Compile Include="Interfaces\IAdjustResources.cs" />
-    <Compile Include="Interfaces\ICoordinateGameflow.cs" />
-    <Compile Include="Interfaces\ICoordinateProduction.cs" />
-    <Compile Include="Interfaces\IResolveCombat.cs" />
-    <Compile Include="Interfaces\IMakeAIDecisions.cs" />
-    <Compile Include="Interfaces\IPlayAudio.cs" />
-    <Compile Include="Interfaces\ICoordinateDiplomacy.cs" />
-    <Compile Include="Interfaces\IResolveMovement.cs" />
-    <Compile Include="Interfaces\IPresentTheGame.cs" />
-    <Compile Include="Interfaces\IShowGraphics.cs" />
+    <Compile Include="Interfaces\IResourceEngine.cs" />
+    <Compile Include="Interfaces\IGameflowCoordinator.cs" />
+    <Compile Include="Interfaces\IProductionEngine.cs" />
+    <Compile Include="Interfaces\ICombatEngine.cs" />
+    <Compile Include="Interfaces\IDecisionEngine.cs" />
+    <Compile Include="Interfaces\IAudioEngine.cs" />
+    <Compile Include="Interfaces\IDiplomacyEngine.cs" />
+    <Compile Include="Interfaces\IMovementEngine.cs" />
+    <Compile Include="Interfaces\IPresentationEngine.cs" />
+    <Compile Include="Interfaces\IRenderingEngine.cs" />
     <Compile Include="MovementEngine.cs" />
     <Compile Include="PresentationEngine.cs" />
     <Compile Include="ProductionEngine.cs" />

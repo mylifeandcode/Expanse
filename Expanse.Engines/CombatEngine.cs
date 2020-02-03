@@ -8,7 +8,7 @@ using Expanse.Infrastructure.Interfaces;
 
 namespace Expanse.Engines
 {
-    public class CombatEngine : IResolveCombat
+    public class CombatEngine : ICombatEngine
     {
         private IAnnounce _announcer;
 

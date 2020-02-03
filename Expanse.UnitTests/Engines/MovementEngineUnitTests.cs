@@ -33,7 +33,7 @@ namespace Expanse.UnitTests.Engines
             TacticalUnit tacticalUnit = new TacticalUnit()
             {
                 CurrentPosition = startingPosition,
-                DestinationPosition = destinationPosition,
+                Destination = destinationPosition,
                 Speed = 3
             };
 
@@ -63,14 +63,14 @@ namespace Expanse.UnitTests.Engines
             TacticalUnit tacticalUnit = new TacticalUnit()
             {
                 CurrentPosition = startingPosition,
-                DestinationPosition = destinationPosition,
+                Destination = destinationPosition,
                 Speed = 3
             };
 
             TacticalGroup tacticalGroup = new TacticalGroup
             {
                 CurrentPosition = startingPosition,
-                DestinationPosition = destinationPosition
+                Destination = destinationPosition
             };
 
             //tacticalGroup.TacticalUnits.Add(tacticalUnit);

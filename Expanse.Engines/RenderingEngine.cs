@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Expanse.Engines
 {
-    public class RenderingEngine : IShowGraphics
+    public class RenderingEngine : IRenderingEngine
     {
     }
 }

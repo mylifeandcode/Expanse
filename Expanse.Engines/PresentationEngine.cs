@@ -7,12 +7,12 @@ using System.Threading.Tasks;
 
 namespace Expanse.Engines
 {
-    public class PresentationEngine : IPresentTheGame
+    public class PresentationEngine : IPresentationEngine
     {
-        protected IPlayAudio _audioEngine { get; private set; }
-        protected IShowGraphics _renderingEngine { get; private set; }
+        protected IAudioEngine _audioEngine { get; private set; }
+        protected IRenderingEngine _renderingEngine { get; private set; }
 
-        public PresentationEngine(IShowGraphics renderingEngine, IPlayAudio audioEngine)
+        public PresentationEngine(IRenderingEngine renderingEngine, IAudioEngine audioEngine)
         {
             _renderingEngine = renderingEngine;
             _audioEngine = audioEngine;

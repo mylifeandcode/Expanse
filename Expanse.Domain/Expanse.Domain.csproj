@@ -50,7 +50,7 @@
     <Compile Include="Things\Civilization.cs" />
     <Compile Include="Things\Commander.cs" />
     <Compile Include="Things\Diplomat.cs" />
-    <Compile Include="Things\Interfaces\IMoveAndFight.cs" />
+    <Compile Include="Things\Interfaces\ITacticalUnit.cs" />
     <Compile Include="Things\Modifier.cs" />
     <Compile Include="Things\Nation.cs" />
     <Compile Include="Things\Outpost.cs" />

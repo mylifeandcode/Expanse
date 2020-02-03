@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Expanse.Engines
 {
-    public class ProductionEngine : ICoordinateProduction
+    public class ProductionEngine : IProductionEngine
     {
     }
 }
