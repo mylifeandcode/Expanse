@@ -16,7 +16,6 @@ namespace Expanse.Engines
         public List<Nation> Nations { get; set; }
         public TacticalMap Map { get; set; }
 
-
         public MovementEngine(List<Nation> nations, TacticalMap map)
         {
             #region Guard Code
@@ -92,7 +91,7 @@ namespace Expanse.Engines
         private void MoveAndCheckForCombat(ITacticalUnit unit)
         {
             unit.CurrentPosition = GetNextPosition(unit.CurrentPosition, unit.Destination, unit.Speed);
-            IEnumerable<ITacticalUnit> willFightWith;
+            List<ITacticalUnit> willFightWith;
             if (ShouldCombatEnsue(unit, out willFightWith))
             {
                 SetCombatStance(unit);
@@ -162,10 +161,45 @@ namespace Expanse.Engines
         /// <param name="unit"></param>
         /// <param name="willFightWith"></param>
         /// <returns></returns>
-        private bool ShouldCombatEnsue(ITacticalUnit unit, out IEnumerable<ITacticalUnit> willFightWith)
+        private bool ShouldCombatEnsue(ITacticalUnit unit, out List<ITacticalUnit> willFightWith)
         {
             //Is there another ITacticalUnit present in the same location? And if so, is it hostile?
-            throw new NotImplementedException();
+            var hostileNations = 
+                Nations.Where(nation => 
+                    nation.IsActive 
+                    && nation.IsHostileTowardsNation(unit.NationId)
+                    );
+
+            if (!hostileNations.Any())
+            {
+                willFightWith = null;
+                return false;
+            }
+
+            var unitsFromHostileNations = 
+                hostileNations.SelectMany(nation => 
+                    nation.TacticalUnits.Where(unfriendlyUnit => unfriendlyUnit.CurrentPosition == unit.CurrentPosition));
+
+            if (!unitsFromHostileNations.Any())
+            {
+                willFightWith = null;
+                return false;
+            }
+            else
+            {
+                willFightWith = new List<ITacticalUnit>();
+
+                //Will fight with any tactical units from a nation at war with, or a nation that decides that now would be a good time to declare war.
+                foreach (var nation in hostileNations)
+                {
+                    if (nation.IsAtWarWith(unit.NationId) || nation.DeclaresWar(unit.NationId))
+                        willFightWith.AddRange(unitsFromHostileNations.Where(unfriendlyUnits => unfriendlyUnits.NationId == nation.Id).ToList());
+
+                    //TODO: For newly declared war, need way of setting relationship values on the nation war has now been declared on
+                }
+
+                return willFightWith.Any();
+            }
         }
 
 
@@ -175,8 +209,13 @@ namespace Expanse.Engines
         /// <param name="unit">The object to modify</param>
         private void SetCombatStance(ITacticalUnit unit)
         {
-            unit.Destination = unit.CurrentPosition; //Stop right there!
+            unit.StopMoving();
             unit.IsInCombat = true;
+        }
+
+        private IEnumerable<ITacticalUnit> GetTacticalUnitsAtPosition(Position position)
+        {
+            return Nations.SelectMany(nation => nation.TacticalUnits.Where(unit => unit.CurrentPosition == position));
         }
     }
 }

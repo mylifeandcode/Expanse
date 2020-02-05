@@ -11,5 +11,7 @@ namespace Expanse.Domain.Diplomacy
         public short NationId { get; set; }
         public short VolatilityTowards { get; set; }
         public short FriendlinessTowards { get; set; }
+        public List<Partnership> Partnerships { get; set; }
+        public bool AtWarWith { get; set; }
     }
 }

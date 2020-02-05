@@ -10,6 +10,7 @@ namespace Expanse.Domain.Things
     public class TacticalUnit : ITacticalUnit
     {
         #region Properties
+        public short NationId { get; set; }
         public string Name { get; set; }
         public string Classification { get; set; }
         public string ClassificationDescription { get; set; }
@@ -48,6 +49,17 @@ namespace Expanse.Domain.Things
         }
 
         public bool IsInCombat { get; set; }
+        public Position IntendedDestination { get; set; }
+
+        public void ResumeMoving()
+        {
+            Destination = IntendedDestination;
+        }
+
+        public void StopMoving()
+        {
+            Destination = null;
+        }
         #endregion Properties
 
     }

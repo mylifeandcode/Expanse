@@ -19,6 +19,8 @@ namespace Expanse.Domain.Things
 
         #region Properties
 
+        public short NationId { get; set; }
+
         public IReadOnlyList<TacticalUnit> TacticalUnits { get { return _tacticalUnits; } }
         
         public bool IsInTransit
@@ -83,6 +85,8 @@ namespace Expanse.Domain.Things
             }
         }
 
+        public Position IntendedDestination { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+
         #endregion Properties
 
 
@@ -106,6 +110,16 @@ namespace Expanse.Domain.Things
         {
             tacticalUnit.TacticalGroupId = null;
             _tacticalUnits.Remove(tacticalUnit);
+        }
+
+        public void StopMoving()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void ResumeMoving()
+        {
+            throw new NotImplementedException();
         }
 
         #endregion Public Methods

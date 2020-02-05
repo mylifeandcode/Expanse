@@ -13,6 +13,11 @@ namespace Expanse.Domain.Things.Interfaces
     public interface ITacticalUnit
     {
         /// <summary>
+        /// Which Nation this unit belongs to.
+        /// </summary>
+        short NationId { get; set; }
+
+        /// <summary>
         /// Where the unit currently is.
         /// </summary>
         Position CurrentPosition { get; set; }
@@ -37,5 +42,9 @@ namespace Expanse.Domain.Things.Interfaces
         /// The number of spaces per turn the unit moves.
         /// </summary>
         short Speed { get; }
+
+        void StopMoving();
+
+        void ResumeMoving();
     }
 }
